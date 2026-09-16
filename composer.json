@@ -1,0 +1,14 @@
+{
+    "name": "richard-keasley/organiser",
+    "description": "CodeIgniter 4 migration of the organiser app",
+    "type": "project",
+    "require": {
+        "php": "^8.1",
+        "codeigniter4/framework": "^4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
