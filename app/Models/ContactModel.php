@@ -39,6 +39,21 @@ class ContactModel extends Model
         return $this->find($id);
     }
 
+    public function getContactWithDetails(int $id): ?array
+    {
+        $contact = $this->find($id);
+
+        if (! $contact) {
+            return null;
+        }
+
+        $contact['phones'] = model(ContactPhoneNumberModel::class)->getByContact($id);
+        $contact['emails'] = model(ContactEmailAddressModel::class)->getByContact($id);
+        $contact['addresses'] = model(ContactPostalAddressModel::class)->getByContact($id);
+
+        return $contact;
+    }
+
     public function createContact(array $data): bool
     {
         return $this->insert($data) !== false;
