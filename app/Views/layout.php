@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="description" content="The small framework with powerful features">
+<meta name="description" content="Event and date organiser">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php echo esc($title);?></title>
 
@@ -196,7 +196,26 @@ function chkinput(el) {
 	};
 };
 
+const reminders = {
+
+api: '<?php echo base_url('api/event/remdate');?>',
+	
+update: function(btn) {
+	var input = new trinputs(btn);
+	input.dirty();
+	
+	$.post(this.api, apilib.post(input.dataset) )
+	.done(function(response) {
+		$('#reminders-container').html(response);
+	})
+	.fail(function(xhr) { 
+		apilib.error(xhr);
+		input.clean();
+	});
+}
+
+};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
+</body> 
 </html>

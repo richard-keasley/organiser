@@ -61,7 +61,3 @@ $attrs = [
 ];
 echo anchor($href, $label, $attrs);
 $this->endSection();
-
-$this->section('bottom'); 
-echo $this->include('js/reminders');
-$this->endSection();

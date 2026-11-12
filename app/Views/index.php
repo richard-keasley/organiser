@@ -3,7 +3,7 @@
 $this->section('main'); ?>
 <div class="row">
 
-<section class="col-md-auto"><div class="sticky-top">
+<section class="col-md-auto" style="max-width:20em"><div class="sticky-top">
 
 <div id="reminders-container" class="my-1"><?php
 echo $this->include('events/reminders');
@@ -63,7 +63,3 @@ $this->section('footer'); ?>
 </div>
 <?php $this->endSection();
 }
-
-$this->section('bottom');
-echo $this->include('js/reminders');
-$this->endSection();
