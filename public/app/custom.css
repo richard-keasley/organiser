@@ -1,0 +1,165 @@
+:root,
+[data-bs-theme="light"] {
+	--bs-font-sans-serif: "Didact Gothic", sans-serif;
+  
+	
+  /* 1. Core Brand Colours */
+  --bs-primary: #fd7e0d;
+  --bs-primary-rgb: 253, 126, 13;
+  --bs-secondary: #7d766c;
+  --bs-secondary-rgb: 125, 118, 108;
+
+  /* 2. Page Background & Surfaces (slightly tinted warm neutral) */
+  --bs-body-bg: #f7f7f6;
+  --bs-body-bg-rgb: 247, 247, 246;
+  --bs-secondary-bg: #efefed;
+  --bs-secondary-bg-rgb: 239, 239, 237;
+
+  /* 3. Paler Tertiary Colour (#fae7e7) */
+  --bs-tertiary-color: #fae7e7;
+  --bs-tertiary-color-rgb: 250, 231, 231;
+  --bs-tertiary-bg: #fae7e7;
+  --bs-tertiary-bg-rgb: 250, 231, 231;
+
+  /* 4. Subtle Backgrounds, Borders & Text Emphasis (alerts, badges, tables) */
+  --bs-primary-text-emphasis: #653205;
+  --bs-primary-bg-subtle: #ffe5cf;
+  --bs-primary-border-subtle: #fecb9e;
+
+  --bs-secondary-text-emphasis: #322f2b;
+  --bs-secondary-bg-subtle: #e5e4e2;
+  --bs-secondary-border-subtle: #cbc8c4;
+
+  /* 5. Links & Focus Rings */
+  --bs-link-color: #fd7e0d;
+  --bs-link-color-rgb: 253, 126, 13;
+  --bs-link-hover-color: #d76b0b;
+  --bs-link-hover-color-rgb: 215, 107, 11;
+  --bs-focus-ring-color: rgba(253, 126, 13, 0.25);
+}
+
+/* 6. Primary Buttons */
+.btn-primary {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: #fd7e0d;
+  --bs-btn-border-color: #fd7e0d;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: #d76b0b;
+  --bs-btn-hover-border-color: #ca650a;
+  --bs-btn-focus-shadow-rgb: 253, 126, 13;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: #ca650a;
+  --bs-btn-active-border-color: #be5f0a;
+  --bs-btn-disabled-color: #ffffff;
+  --bs-btn-disabled-bg: #fd7e0d;
+  --bs-btn-disabled-border-color: #fd7e0d;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #fd7e0d;
+  --bs-btn-border-color: #fd7e0d;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: #fd7e0d;
+  --bs-btn-hover-border-color: #fd7e0d;
+  --bs-btn-focus-shadow-rgb: 253, 126, 13;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: #ca650a;
+  --bs-btn-active-border-color: #ca650a;
+  --bs-btn-disabled-color: #fd7e0d;
+  --bs-btn-disabled-border-color: #fd7e0d;
+}
+
+/* 7. Secondary Buttons */
+.btn-secondary {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: #7d766c;
+  --bs-btn-border-color: #7d766c;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: #6a645c;
+  --bs-btn-hover-border-color: #645e56;
+  --bs-btn-focus-shadow-rgb: 125, 118, 108;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: #645e56;
+  --bs-btn-active-border-color: #5e5951;
+  --bs-btn-disabled-color: #ffffff;
+  --bs-btn-disabled-bg: #7d766c;
+  --bs-btn-disabled-border-color: #7d766c;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: #7d766c;
+  --bs-btn-border-color: #7d766c;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: #7d766c;
+  --bs-btn-hover-border-color: #7d766c;
+  --bs-btn-focus-shadow-rgb: 125, 118, 108;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: #645e56;
+  --bs-btn-active-border-color: #645e56;
+  --bs-btn-disabled-color: #7d766c;
+  --bs-btn-disabled-border-color: #7d766c;
+}
+
+/* 8. Custom Paler Tertiary Utility Classes (#fae7e7) */
+.bg-tertiary {
+  background-color: #fae7e7 !important;
+}
+
+.text-tertiary {
+  color: #fae7e7 !important;
+}
+
+.border-tertiary {
+  border-color: #fae7e7 !important;
+}
+
+header h1 {
+	margin: 0;
+	padding: 0;
+	line-height: 2.6rem;
+	font-size: 1.8rem;
+}
+
+.table-responsive table.table {
+	width: auto;
+}
+.table-responsive table.table td {
+	white-space: nowrap;
+}
+
+table.grid td {
+	--bs-border-color: var(--bs-body-color);
+	width: 1em;
+	height: 1em;
+}
+
+@media screen {
+
+body {
+	display: grid;
+	grid-template-rows: 6.3em 1fr 2em;
+	height: 100vh;
+	width: 100vw;
+	min-width:20em;
+}	
+	
+}
+
+@media print {
+html {
+	margin: 0;
+	padding: 0;
+}
+body {
+	min-height: 280mm;
+	margin: 0;
+	padding: 0;
+	background: white;
+}
+
+.columns-2 {
+	column-count: 2;
+	column-gap: 15mm;
+}	
+
+}
