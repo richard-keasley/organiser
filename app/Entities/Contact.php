@@ -22,14 +22,19 @@ function getIcon() {
 }
 
 function getLink() {
-	$href = $this->ConAdd;
-	$strip = parse_url($this->type['ConTypeCom'], PHP_URL_SCHEME) ? true : false ;
-	if($strip) {
-		$href = preg_replace('/[^A-Z0-9,\.\-_%]+/i', ' ', $href);
+	try {
+		$href = normalise_url($this->ConAdd, $this->type['scheme']);
+		if($this->type['format']) $href = sprintf($this->type['format'], $href);
+		$attrs = parse_url($href, PHP_URL_SCHEME) ? 
+			['href' => $href] : 
+			['title' => "no link available"] ;
 	}
-	$href = str_replace('%1', $href, $this->type['ConTypeCom']);
-	$address = nl2br($this->ConAdd);
-	return sprintf('<a href="%s">%s</a>', $href, $address);
+	catch(\throwable $ex) {
+		$attrs = ['title' => $ex->getMessage(), 'class'=>"bg-danger-subtle"];
+	}
+	
+	$label = nl2br($this->ConAdd);
+	return sprintf('<a %s>%s</a>', stringify_attributes($attrs), $label);
 }
 
 function getType() {

@@ -24,3 +24,52 @@ function colour_hexdec(string $hex) : int {
 	$hex = trim($hex, '#');
 	return hexdec($hex);
 }
+
+/**
+ * Normalises a URL or phone number and returns a valid URI string with a scheme.
+ * Defaults to "https" if no scheme is present. Returns false if invalid.
+ *
+ * @param string $input The input URL, domain, or phone number.
+ * @param string $defaultScheme The default scheme for schemeless web URLs.
+ * @return string|false
+ */
+function normalise_url(string $address, string $defscheme='https'): string {
+    $address = trim($address);
+    
+	// work out scheme and address
+	if(preg_match('#^([a-z][a-z0-9+.-]*):/*(.*)$#i', $address, $matches)) {
+        $scheme = strtolower($matches[1]);
+        $address = trim($matches[2]);
+		
+	}
+	else {
+		$scheme = $defscheme;
+	}
+		
+	// normalise address
+	switch($scheme) {
+		case 'tel':
+		// strip spaces and punctuation
+		$address = preg_replace('/[^\d+]/', '', $address);
+		break;
+		
+		case 'query':
+		// convert multiple white spaces
+		$address = preg_replace('/\s+/', ' ', $address);
+		$address = urlencode($address);
+		$scheme = null;
+		break;
+		
+		// external links
+		case 'http':
+		case 'https':
+		$address = '//' . $address;
+		break;
+	}
+	# d($scheme, $address);
+	
+	if($address) {
+		return $scheme ? "{$scheme}:{$address}" : $address;
+	}
+	return '';
+}
