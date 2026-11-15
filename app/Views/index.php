@@ -54,12 +54,3 @@ foreach($houses as $house) {
 
 </div>
 <?php $this->endSection();
-
-if(ENVIRONMENT!='production') {
-$this->section('footer'); ?>
-<div class="row">
-	<div class="col-6">Page: {elapsed_time} sec, {memory_usage} MB</div>
-	<div class="col-6">Environment: <?php echo ENVIRONMENT; ?></div>
-</div>
-<?php $this->endSection();
-}

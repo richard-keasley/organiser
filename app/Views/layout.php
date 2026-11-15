@@ -107,9 +107,17 @@ if(service('settings')->get("Auth.allowRegistration")) { ?>
 echo $this->renderSection('main') ;
 ?></div></main> 
 
-<footer class="container-fluid bg-body-tertiary">
-<?php echo $this->renderSection('footer') ;?>
-</footer>
+<footer class="container-fluid bg-body-tertiary"><?php 
+
+echo $this->renderSection('footer') ;
+
+if(ENVIRONMENT!='production') { ?>
+<div class="row">
+	<div class="col-6">{elapsed_time} sec / {memory_usage} MB</div>
+	<div class="col-6">Environment: <?php echo ENVIRONMENT; ?></div>
+</div>
+<?php }
+?></footer>
 
 <?php echo $this->renderSection('bottom') ;?>
 
