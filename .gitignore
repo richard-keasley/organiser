@@ -1,3 +1,4 @@
 .env
 /vendor
 /writable
+/public/app/lib

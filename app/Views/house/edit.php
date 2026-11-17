@@ -10,6 +10,7 @@ $this->section('main'); ?>
 		'name' => "HouseTitle",
 		'value' => $house->HouseTitle,
 		'class' => "form-control",
+		'onKeyup' => "houseedit.house.dirty(this)",
 	];
 	echo form_input($attrs);
 	?>
@@ -21,6 +22,7 @@ $this->section('main'); ?>
 		'name' => "defName2",
 		'value' => $house->defName2,
 		'class' => "form-control",
+		'onKeyup' => "houseedit.house.dirty(this)",
 	];
 	echo form_input($attrs);
 	?>
@@ -129,9 +131,50 @@ tr: {
 			apilib.error(xhr);
 		});
 	},
+	
+	update2: function(el, api) {
+		return new Promise(function(resolve, reject) {
+			var input = new trinputs(el);
+			
+			if (input.cmd == 'delete') {
+				var confirmed = confirm('Delete this row?');
+				if (!confirmed) {
+					reject(new Error('Delete cancelled by user.'));
+					return;
+				}
+			}
+			
+			input.dirty();
+			input.inputs.HouseID = <?php echo $house->HouseID;?>;
+			
+			api = `${api}/${input.cmd}`;
+			
+			$.post(api, apilib.post(input.inputs))
+				.done(function(response) {
+					switch(input.cmd) {
+						case 'insert':
+						$(el).closest('.houseedit-table').html(response);
+						break;
+							
+						default:
+						houseedit.tr.clean(input, response);
+					}
+					resolve();
+				})
+				.fail(function(xhr) {
+					apilib.error(xhr);
+					reject(xhr);
+				});
+		});
+	}
 },
 
 house: {
+	dirty: function(el) {
+		var container = $(el).closest('fieldset');
+		container.addClass('bg-warning bg-opacity-25');
+	},
+	
 	update: function(el) {
 		var $src = $('#house-info');
 		var fldname, fldvalue;
@@ -249,7 +292,14 @@ people: {
 	api: '<?php echo base_url("api/person");?>',
 	
 	update: function(el) {
-		houseedit.tr.update(el, this.api);
+		houseedit.tr.update2(el, this.api)
+		.then(function() {
+			console.log('OK');
+		})
+		.catch(function(error) {
+			console.error(error);
+			alert(error.message);
+		});
 	},
 },
 

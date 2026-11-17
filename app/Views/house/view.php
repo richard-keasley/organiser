@@ -5,15 +5,20 @@ $this->section('main');
 $f_open = '<fieldset class="border p-2 my-1"><legend>%s</legend>';
 $f_close = '</fieldset>';
 
-printf($f_open, 'People'); ?>
-<ul class="nav flex-column"><?php
-$format = '<li>%s</li>';
+$people = [];
 foreach($house->people as $person) {
-	if($person->houseperson) continue;
-	printf($format, $person->name);
+	if(!$person->houseperson) $people[] = $person;
 }
-?></ul>
-<?php echo $f_close; 
+if($people) {
+	printf($f_open, 'People'); ?>
+	<ul class="nav flex-column"><?php
+	$format = '<li>%s</li>';
+	foreach($people as $person) {
+		printf($format, $person->name);
+	}
+	?></ul>
+	<?php echo $f_close;
+}
 
 if($house->contacts) {
 printf($f_open, 'Contacts'); ?>

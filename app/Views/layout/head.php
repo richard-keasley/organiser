@@ -14,16 +14,20 @@ echo (empty($this->sections['title'])) ?
 <?php
 
 $links = [
-	[
-		'href' => "app/custom.css",
-	],
-	[
-		'rel' => "shortcut icon",
-		'type' => "image/png",
-		'href' => "favicon.ico",
-	],
+[
+	'href' => "app/custom.css",
+],
+[
+	'rel' => "shortcut icon",
+	'type' => "image/png",
+	'href' => "favicon.ico",
+],
 ];
 foreach($links as $attrs) echo link_tag($attrs);
 
-?>
-<script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+$links = [
+[
+	'src' => "app/lib/jquery-4.1.0.min.js",
+],
+];
+foreach($links as $attrs) echo script_tag($attrs);
