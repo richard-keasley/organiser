@@ -6,12 +6,13 @@ $this->section('main'); ?>
 <div class="columns-2"><?php
 
 $boxes = sprintf('<div class="pt-1">%s</div>', new \App\Cells\grid(3, 1));
-$header = '<h3>%s</h3>';
+$header = '<h3>%s (%u)</h3>';
 
 foreach($groups as $group) {
-	printf($header, $group['GrpDes']);
 	$houses = model('Houses')->ingroup($group['GroupID']);
 	if(!$houses) continue;
+
+	printf($header, $group['GrpDes'], count($houses));
 	?>
 	<div class="d-grid gap-1" style="grid-template-columns: 3em 1fr"><?php
 	foreach($houses as $house) { 

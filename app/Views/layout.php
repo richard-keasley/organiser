@@ -1,42 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="description" content="Event and date organiser">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?php echo esc($title);?></title>
-
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css" rel="stylesheet" type="text/css">
-<?php
-
-$links = [
-	[
-		'href' => "app/custom.css",
-	],
-	[
-		'rel' => "shortcut icon",
-		'type' => "image/png",
-		'href' => "favicon.ico",
-	],
-];
-foreach($links as $attrs) echo link_tag($attrs);
-
-?>
-<script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
-<?php $this->renderSection('head') ;?>
-</head>
-<body>
+<head><?php 
+echo $this->include('layout/head');
+echo $this->renderSection('head'); 
+?></head>
+<body id="body-app">
 
 <header class="container-fluid bg-body-tertiary position-relative d-print-none" style="min-width:0">
 <?php
 $attrs = [
-	'class' => "position-absolute",
+	'class' => "img-brand",
 	'src' => site_url('app/brand.png'),
-	'style' => "height:8em;right:1em;top:0;opacity:0.05",
 ];
 echo img($attrs);
 ?>
@@ -96,7 +70,7 @@ echo anchor($href, $label, $attrs);
 
 </header>
 
-<main class="overflow-scroll"><div class="container-fluid"><?php 
+<main class="overflow-scroll" role="main"><div class="container-fluid"><?php 
 
 if(service('settings')->get("Auth.allowRegistration")) { ?>
 <div class="alert alert-danger">App is open for new users

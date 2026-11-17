@@ -135,13 +135,30 @@ table.grid td {
 
 @media screen {
 
-body {
+body#body-app {
 	display: grid;
 	grid-template-rows: 6.3em 1fr 2em;
 	height: 100vh;
 	width: 100vw;
 	min-width:20em;
-}	
+}
+
+body#body-app header .img-brand {
+	position: absolute;
+	height:8em;
+	right:1em;
+	top:0;
+	opacity:0.1;
+}
+
+body#body-auth main .img-brand {
+	position: absolute;
+	width: 20vw;
+	right: 0.5em;
+	top: 0.5em;
+	opacity: 0.5;
+	z-index: 999;
+}
 	
 }
 

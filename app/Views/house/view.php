@@ -1,9 +1,11 @@
 <?php $this->extend('layout');
 
-$this->section('main'); ?>
+$this->section('main'); 
 
-<fieldset class="border p-2 my-1">
-<legend>People</legend>
+$f_open = '<fieldset class="border p-2 my-1"><legend>%s</legend>';
+$f_close = '</fieldset>';
+
+printf($f_open, 'People'); ?>
 <ul class="nav flex-column"><?php
 $format = '<li>%s</li>';
 foreach($house->people as $person) {
@@ -11,10 +13,10 @@ foreach($house->people as $person) {
 	printf($format, $person->name);
 }
 ?></ul>
-</fieldset>
+<?php echo $f_close; 
 
-<fieldset class="border p-2 my-1">
-<legend>Contacts</legend>
+if($house->contacts) {
+printf($f_open, 'Contacts'); ?>
 <div class="d-grid gap-2" style="grid-template-columns: 1em auto;">
 <?php
 $format = '%s<div class="text-secondary text-opacity-75">%s</div>';
@@ -29,10 +31,11 @@ foreach($house->contacts as $contact) {
 }
 ?>
 </div>
-</fieldset>
+<?php echo $f_close;
+}
 
-<fieldset class="border p-2 my-1">
-<legend>Groups</legend>
+if($house->groups) {
+printf($f_open, 'Groups'); ?>
 <ul class="nav flex-column"><?php
 $format = '<li class="nav-item">%s</li>';
 $attrs = ['class' => "nav-link"];
@@ -41,15 +44,17 @@ foreach($house->groups as $group) {
 	printf($format, $link);
 }
 ?></ul>
-</fieldset>
+<?php echo $f_close; 
+}
 
-<fieldset class="border p-2 my-1">
-<legend>Events</legend>
+if($house->events) {
+printf($f_open, 'Events'); ?>
 <div id="reminders-container"><?php
 echo $this->include('house/view-events');
 ?></div>
-</fieldset>
-<?php 
+<?php echo $f_close; 
+}
+
 $this->endSection();
 
 $this->section('nav');
