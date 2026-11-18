@@ -35,28 +35,28 @@ $this->section('main'); ?>
 
 <fieldset>
 <legend>People</legend>
-<div class="houseedit-table"><?php 
+<div id="edit-people" class="houseedit-table"><?php 
 echo $this->include('house/edit-people');
 ?></div>
 </fieldset>
 
 <fieldset>
 <legend>Contacts</legend>
-<div class="houseedit-table"><?php 
+<div id="edit-contacts" class="houseedit-table"><?php 
 echo $this->include('house/edit-contacts');
 ?></div>
 </fieldset>
 
 <fieldset>
 <legend>Groups</legend>
-<div class="houseedit-table"><?php 
+<div id="edit-groups" class="houseedit-table"><?php 
 echo $this->include('house/edit-groups');
 ?></div>
 </fieldset>
 
 <fieldset>
 <legend>Events</legend>
-<div class="houseedit-table"><?php 
+<div id="edit-events" class="houseedit-table"><?php 
 echo $this->include('house/edit-events');
 ?></div>
 </fieldset>
@@ -86,6 +86,8 @@ $this->section('bottom'); ?>
 <script>
 const houseedit = {
 
+id: <?php echo (int) $house->HouseID;?>,
+
 tr: {
 	dirty: function(el) {
 		$(el).closest('tr').addClass('table-warning');
@@ -104,35 +106,8 @@ tr: {
 			input.clean();
 		}
 	},
-
-	update: function(el, api) {
-		var input = new trinputs(el);
-		if(input.cmd=='delete') {
-			var confirmed = confirm('Delete this row?');
-			if(!confirmed) return false;
-		}
-		
-		input.dirty();
-		input.inputs.HouseID = <?php echo $house->HouseID;?>;
-		
-		api = `${api}/${input.cmd}`;
-		$.post( api, apilib.post(input.inputs) )
-		.done(function(response) {
-			switch(input.cmd) {
-				case 'insert':
-				$(el).closest('.houseedit-table').html(response);
-				break;
-				
-				default:
-				houseedit.tr.clean(input, response);
-			}
-		})
-		.fail(function(xhr) { 
-			apilib.error(xhr);
-		});
-	},
 	
-	update2: function(el, api) {
+	update: function(el, api) {
 		return new Promise(function(resolve, reject) {
 			var input = new trinputs(el);
 			
@@ -161,9 +136,9 @@ tr: {
 					}
 					resolve();
 				})
-				.fail(function(xhr) {
-					apilib.error(xhr);
-					reject(xhr);
+				.fail(function(error) {
+					apilib.error(error);
+					reject(error);
 				});
 		});
 	}
@@ -193,7 +168,9 @@ house: {
 		
 		$.post( api, apilib.post(postvals) )
 		.done(function(response) {
-			window.location.reload();
+			houseedit.people.get();
+			houseedit.contacts.get();
+			houseedit.events.get();
 		})
 		.fail(function(xhr) { 
 			apilib.error(xhr);
@@ -205,7 +182,7 @@ house: {
 },
 
 events: {
-	api: '<?php echo base_url('api/event'); ?>',
+	api: '<?php echo base_url('api/events'); ?>',
 	
 	description: function(el) {
 		var input = new trinputs(el);
@@ -236,10 +213,17 @@ events: {
 	update: function(el) {
 		houseedit.tr.update(el, this.api);
 	},
+	
+	get: function() {
+		var api = `${this.api}/view/${houseedit.id}`;
+		$.get(api).done(function(response) {
+			$('#edit-events').html(response);
+		});		
+	},
 },
 
 contacts: {
-	api: '<?php echo base_url('api/contact'); ?>',
+	api: '<?php echo base_url('api/contacts'); ?>',
 	
 	description: function(el) {
 		var input = new trinputs(el);
@@ -263,6 +247,13 @@ contacts: {
 	
 	update: function(el) {
 		houseedit.tr.update(el, this.api);
+	},
+	
+	get: function() {
+		var api = `${this.api}/view/${houseedit.id}`;
+		$.get(api).done(function(response) {
+			$('#edit-contacts').html(response);
+		});		
 	},
 },
 
@@ -289,24 +280,30 @@ groups: {
 },
 
 people: {
-	api: '<?php echo base_url("api/person");?>',
+	api: '<?php echo base_url("api/people");?>',
 	
 	update: function(el) {
-		houseedit.tr.update2(el, this.api)
+		houseedit.tr.update(el, this.api)
 		.then(function() {
-			console.log('OK');
+			houseedit.contacts.get();
+			houseedit.events.get();
 		})
 		.catch(function(error) {
-			console.error(error);
-			alert(error.message);
+			// console.error(error);
 		});
+	},
+	
+	get: function() {
+		var api = `${this.api}/view/${houseedit.id}`;
+		$.get(api).done(function(response) {
+			$('#edit-people').html(response);
+		});		
 	},
 },
 
 };
 </script>
 
-<!-- Modal -->
 <div class="modal fade" id="delModal" tabindex="-1" aria-hidden="true">
 <div class="modal-dialog">
 <?php 

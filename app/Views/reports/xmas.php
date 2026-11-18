@@ -6,7 +6,7 @@ $this->section('main'); ?>
 <div class="columns-2"><?php
 
 $boxes = sprintf('<div class="pt-1">%s</div>', new \App\Cells\grid(3, 1));
-$header = '<h3>%s (%u)</h3>';
+$header = '<h3 class="mt-3 mb-0">%s (%u)</h3>';
 
 foreach($groups as $group) {
 	$houses = model('Houses')->ingroup($group['GroupID']);

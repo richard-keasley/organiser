@@ -16,20 +16,16 @@ foreach(model('EventTypes')->options() as $val=>$label) {
 
 $tr = [];
 $date_format = 'd-M-y';
+$des_format = '<div style="max-width:10em" class="text-nowrap overflow-hidden">%s</div>';
 foreach($events as $event) {
 	
 	$href = "/view/{$event->person->HouseID}";
 	$label = $event->EvDes ? 
 		$event->EvDes : 
 		$evtype_opts[$event->EvTypeID] ?? "??";
-	$tr['description'] = [
-		'style' => "width:13em;",
-		'class' => "text-nowrap overflow-hidden",
-		'data' => anchor($href, $label),
-	];
+	$tr['description'] = sprintf($des_format, anchor($href, $label));
 	
 	$tr['date'] = [
-		'style' => "min-width:5em;",
 		'data-fldname' => "evdate",
 		'data' => $event->EvDate ? 
 			$event->EvDate->format($date_format) : 

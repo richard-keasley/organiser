@@ -1,28 +1,30 @@
 <?php
+$evtype_opts = model('EventTypes')->options();
+$people_opts = $house->peopleopts;
+
+$sel_attrs = [
+	'class' => "form-control",
+	'onChange' => "houseedit.events.description(this)",
+	'data-fldname' => "evdes_select",
+	'style' => "width:7em",
+];
+
+$des_attrs = [
+	'style' => "width:18em",
+	'class' => "form-control",
+	'onKeyup' => "houseedit.tr.dirty(this)",
+];
 
 $dates = [];
 $arr = ['start'=>"EvDate0", 'next'=>"EvDate", 'reminder'=>"RemDate"];
 foreach($arr as $colname=>$dbkey) {
 	$dates[$colname] = [
+		'style' => "width:9em",
 		'class' => "form-control",
 		'name' => $dbkey,
 		'onChange' => "houseedit.tr.dirty(this)",
 	];
 }
-
-$evtype_opts = model('EventTypes')->options();
-$people_opts = $house->peopleopts;
-$ev_attrs = [
-	'class' => "form-control",
-	'onChange' => "houseedit.events.description(this)",
-	'data-fldname' => "evdes_select",
-	'style' => "min-width:6em",
-];
-$des_attrs = [
-	'style' => "width:15em",
-	'class' => "form-control",
-	'onKeyup' => "houseedit.tr.dirty(this)",
-];
 
 $attrs = [
 	'type' => "button",
@@ -46,8 +48,8 @@ $btn_save = trim(form_button($attrs, $label));
 $tbody = [];
 foreach($house->events as $event) {	
 	$tr = [
-		'person' => new \App\Cells\input\select("PersonID", $event->PersonID, $people_opts, $ev_attrs),
-		'event' => new \App\Cells\input\select("EvTypeID", $event->EvTypeID, $evtype_opts, $ev_attrs),
+		'person' => new \App\Cells\input\select("PersonID", $event->PersonID, $people_opts, $sel_attrs),
+		'event' => new \App\Cells\input\select("EvTypeID", $event->EvTypeID, $evtype_opts, $sel_attrs),
 		'description' => new \App\Cells\input("EvDes", $event->EvDes, $des_attrs),
 	];
 	foreach($dates as $colname=>$attrs) {
@@ -80,8 +82,8 @@ foreach($house->events as $event) {
 
 // new entry
 $tr = [
-	'person' => new \App\Cells\input\select("PersonID", '', $people_opts, $ev_attrs),
-	'event' => new \App\Cells\input\select("EvTypeID", '', $evtype_opts, $ev_attrs),
+	'person' => new \App\Cells\input\select("PersonID", '', $people_opts, $sel_attrs),
+	'event' => new \App\Cells\input\select("EvTypeID", '', $evtype_opts, $sel_attrs),
 	'description' => new \App\Cells\input("EvDes", '', $des_attrs),
 	'start' => new \App\Cells\input\date('EvDate0', '', $dates['start']),
 ];

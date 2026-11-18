@@ -82,7 +82,7 @@ function chkinput(el) {
 
 const reminders = {
 
-api: '<?php echo base_url('api/event/remdate');?>',
+api: '<?php echo base_url('api/events/remdate');?>',
 	
 update: function(btn) {
 	var input = new trinputs(btn);

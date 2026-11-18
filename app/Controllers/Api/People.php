@@ -4,7 +4,7 @@ namespace App\Controllers\Api;
 
 use CodeIgniter\API\ResponseTrait;
 
-class Contact extends Home {
+class People extends Home {
 	
 use ResponseTrait;
 	
@@ -17,7 +17,7 @@ private function filterpost() {
 	foreach($this->request->getPost() as $key=>$val) {
 		$postvals[$key] = trim($val);
 	}
-	return new \App\Entities\Contact($postvals);
+	return new \App\Entities\Person($postvals);
 }
 
 public function getView($id=0) {
@@ -25,7 +25,7 @@ public function getView($id=0) {
 		if(!$id) $id = $this->request->getPost('HouseID');
 		$house = model('Houses')->find((int) $id);
 		if(!$house) return $this->failNotFound();
-		$response = view('house/edit-contacts', ['house'=>$house]);
+		$response = view('house/edit-people', ['house'=>$house]);
 		return $this->respond($response);
 	}
 	catch(\throwable $ex) {
@@ -35,9 +35,9 @@ public function getView($id=0) {
 
 public function postDelete() {
 	try {		
-		$model = model('Contacts');
-		$contact = $this->filterpost();
-		$id = $contact->ConID ?? 0;
+		$model = model('People');
+		$person = $this->filterpost();
+		$id = $person->PersonID ?? 0;
 		$existing = $model->find($id); 
 		if(!$existing) return $this->failNotFound();
 		$model->delete($id);
@@ -50,12 +50,12 @@ public function postDelete() {
 
 public function postSave() {
 	try {		
-		$model = model('Contacts');
-		$contact = $this->filterpost();
-		$id = $contact->ConID ?? 0;
+		$model = model('People');
+		$person = $this->filterpost();
+		$id = $person->PersonID ?? 0;
 		$existing = $model->find($id); 
 		if(!$existing) return $this->failNotFound();
-		$model->update($id, $contact);
+		$model->update($id, $person);
 		return $this->respond($model->find($id)->toarray());
 	}
 	catch(\throwable $ex) {
@@ -65,9 +65,9 @@ public function postSave() {
 
 public function postInsert() {
 	try {
-		$model = model('Contacts');
-		$contact = $this->filterpost();
-		$model->insert($contact);
+		$model = model('People');
+		$person = $this->filterpost();
+		$model->insert($person);
 		return $this->getView();
 	}
 	catch(\throwable $ex) {

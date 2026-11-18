@@ -4,7 +4,7 @@ namespace App\Controllers\Api;
 
 use CodeIgniter\API\ResponseTrait;
 
-class Event extends Home {
+class Events extends Home {
 	
 use ResponseTrait;
 	

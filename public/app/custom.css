@@ -137,10 +137,12 @@ table.grid td {
 
 body#body-app {
 	display: grid;
-	grid-template-rows: 6.3em 1fr 2em;
+	grid-template-rows: 6.3em 1fr;
 	height: 100vh;
 	width: 100vw;
-	min-width:20em;
+	min-width: 20em;
+	max-width: 75em;
+	margin: 0 auto;
 }
 
 body#body-app header .img-brand {

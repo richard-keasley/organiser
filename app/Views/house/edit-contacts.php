@@ -8,12 +8,20 @@ $sel_attrs = [
 	'class' => "form-control",
 	'onChange' => "houseedit.contacts.description(this)",
 	'data-fldname' => "des_select",
-	'style' => "min-width:6em",
+	'style' => "width:7em",
 ];
+
 $des_attrs = [
-	'style' => "min-width:10em",
+	'style' => "width:15em",
 	'class' => "form-control",
 	'onKeyup' => "houseedit.tr.dirty(this)",
+];
+
+$addr_attrs = [
+	'style' => "width:18em",
+	'class' => "form-control",
+	'onKeyup' => "houseedit.tr.dirty(this)",
+	'name' => "ConAdd",
 ];
 
 $attrs = [
@@ -41,12 +49,7 @@ foreach($house->contacts as $contact) {
 	
 	$addr_data = [
 		'contact' => $contact,
-		'attrs' => [
-			'style' => "min-width:10em",
-			'class' => "form-control",
-			'onKeyup' => "houseedit.tr.dirty(this)",
-			'name' => "ConAdd",
-		],
+		'attrs' => $addr_attrs,
 	];
 		
 	$tr = [

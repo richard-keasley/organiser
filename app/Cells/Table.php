@@ -22,15 +22,9 @@ function __construct($config="table") {
 				'table_open' => '<div class="table-responsive"><table class="table table-sm table-striped">',
 				'table_close' => '</table></div>',
 			],
-			/*
-			'list' => [
-				'table_open' => '<div class="table-responsive"><table class="table table-sm table-borderless">',
-				'table_close' => '</table></div>',
-			],
-			*/
+			
 			'list' => [
 				'table_open' => '<table class="table table-sm table-borderless w-auto">',
-				'table_close' => '</table>',
 			],
 			
 			default => [
