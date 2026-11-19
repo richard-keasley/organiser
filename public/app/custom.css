@@ -176,6 +176,11 @@ body {
 	background: white;
 }
 
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
 .columns-2 {
 	column-count: 2;
 	column-gap: 15mm;

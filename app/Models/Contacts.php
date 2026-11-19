@@ -19,7 +19,7 @@ function __construct() {
 }
 
 function inhouse($id) {
-	$ckey = "contacts-inhouse";
+	$ckey = "contacts-inhouse-{$id}";
 	$retval = \App\Libraries\cache::get($ckey);
 	if($retval===null) {
 		$sql = "SELECT tblContact.* FROM tblContact 

@@ -1,7 +1,7 @@
 <?php $this->extend('layout');
 
 $this->section('main'); ?>
-<h1>Christmas card list</h1>
+<h1>House tick list</h1>
 
 <div class="columns-2"><?php
 
